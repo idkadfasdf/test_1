@@ -23,12 +23,12 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	test = *lst;
 	if (test == NULL)
 		return ;
-	while (test -> next != NULL)
+	while (test)
 	{
 		del(test -> content);
 		temp = test;
 		test = test -> next;
 		free(temp);
 	}
-	end = NULL;
+	*end = 0;
 }

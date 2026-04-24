@@ -48,7 +48,6 @@ int main(void)
 	ft_putnbr_fd(INT_MIN, fd);
 	lseek(fd, SEEK_SET, 0);
 	read(fd, s, 12);
-	printf("%s", s);
 	/* 4 */ check(!strcmp(s, to_string(INT_MIN).c_str())); showLeaks();
 	close(fd);
 	unlink("./tripouille");

@@ -37,10 +37,11 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	i = 0;
 	if (lst == NULL)
 		return (NULL);
-	while (lst -> next != NULL)
+	while (lst)
 	{
 		new = less_lines(new);
 		new -> content = f(lst -> content);
+		lst = lst -> next;
 		if (i != 0)
 		{
 			temp -> next = new;
@@ -49,6 +50,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		else
 		{
 			first = new;
+			temp = new;
 			i++;
 		}
 	}

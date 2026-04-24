@@ -25,7 +25,7 @@ static int	len(char *str, char sep)
 	int	total;
 
 	total = 0;
-	if (!str)
+	if (!str || str[0] == '\0')
 		return (0);
 	if (is_sep(str[0], sep) == 0)
 		total++;
@@ -45,12 +45,14 @@ static char	*new_str(char *s, char c, int *u)
 	int		i;
 
 	i = 0;
-	while (is_sep(s[i + *u], c) == 0)
+	while (s[i + *u] && is_sep(s[i + *u], c) == 0)
 		i++;
 	str = malloc(i + 1);
+	if (!str)
+		return (NULL);
 	str[i] = '\0';
 	i = 0;
-	while (is_sep(s[i + *u], c) == 0)
+	while (s[i + *u] && is_sep(s[i + *u], c) == 0)
 	{
 		str[i] = s[i + *u];
 		i++;
@@ -68,6 +70,8 @@ char	**ft_split(char const *s, char c)
 
 	j = len((char *)s, c);
 	tab = malloc((j + 1) * sizeof(char *));
+	if (!tab)
+		return (NULL);
 	tab[j] = NULL;
 	i = 0;
 	u = 0;

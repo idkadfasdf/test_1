@@ -16,26 +16,18 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 	size_t	u;
+	size_t	v;
 
-	printf("\n");
-	if (size <= 0)
-		return (ft_strlen(src));
-	u = 0;
-	i = 0;
-	while (dst[i])
-		i++;
-	while (src[u] && u < size)
+	i = ft_strlen(dst);
+	u = ft_strlen(src);
+	if (size == 0 || size <= i)
+		return (u + size);
+	v = 0;
+	while (src[v] && v < size - i - 1)
 	{
-		dst[i] = src[u];
-		i++;
-		u++;
+		dst[i + v] = src[v];
+		v++;
 	}
-	dst[i] = '\0';
-	//printf("%s, %d", src, (int)ft_strlen(src));
-	//printf("%d, ", (int)(ft_strlen(src) + u));
-	//printf("%d, ", (int)u);
-	//printf("%d", (int)ft_strlen(src));
-	printf("%c", dst[0]);
-	printf("%d", ft_strncmp(dst, "B", 123));
-	return (ft_strlen(src) + u);
+	dst[i + v] = '\0';
+	return (i + u);
 }

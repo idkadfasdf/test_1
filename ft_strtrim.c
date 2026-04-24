@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	is_sep(char c, char *sep)
+static int	is_sep(char c, const char *sep)
 {
 	int	i;
 
@@ -28,19 +28,30 @@ static int	is_sep(char c, char *sep)
 #include <string.h>
 char	*ft_strtrim(char const *s1, char const *set)
 {
+	char	*str;
 	int		i;
 	int		u;
 
 	i = 0;
-	while (is_sep(((char *)s1)[i], (char *)set) == 1)
+	while (is_sep(s1[i], set) == 1)
 		i++;
 	u = 0;
-	while (((char *)s1)[u])
+	while (s1[u])
 		u++;
 	u--;
-	while (is_sep(((char *)s1)[u], (char *)set) == 1)
+	while (is_sep(s1[u], set) == 1)
 		u--;
-	return (NULL);
+	u++;
+	if (u < i)
+	{
+		str = malloc(1);
+		if (!str)
+			return (NULL);
+		str[0] = '\0';
+		return (str);
+	}
+	str = ft_substr(s1, i, u - i);
+	return (str);
 }
 
 /*#include <stdio.h>

@@ -17,21 +17,26 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*str;
 	size_t	i;
 
-	printf("\n");
+	if (ft_strlen(s) < start)
+	{
+		str = malloc(1);
+		if (!str)
+			return (NULL);
+		str[0] = '\0';
+		return (str);
+	}
 	i = 0;
-	while (s[i])
+	while (s[i + start] && i < len)
 		i++;
-	if (start >= i)
-		return ("");
-	str = malloc(len + 1);
-	if (str == NULL)
+	str = malloc(i + 1);
+	if (!str)
 		return (NULL);
+	str[i] = '\0';
 	i = 0;
 	while (i < len && s[start + i])
 	{
 		str[i] = s[start + i];
 		i++;
 	}
-	str[i] = '\0';
 	return (str);
 }
