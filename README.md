@@ -1,4 +1,4 @@
-This activity has been created as part of the 42 curriculum by ylau-sim.
+*This activity has been created as part of the 42 curriculum by ylau-sim*
 
 Description:
     This project includes 43 functions, a makefile and a libft.h file. The makefile should compile all
