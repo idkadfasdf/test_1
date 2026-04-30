@@ -177,8 +177,9 @@ char	*get_next_line(int fd)
 		nb_read = read(fd, buf, BUFFER_SIZE);
 		if (nb_read <= 0)
 		{
-			if (lst)
+			if (lst && nb_read != -1)
 				return (return_lst(&lst));
+			clear_list(&lst);
 			return (NULL);
 		}
 		buf[nb_read] = '\0';
