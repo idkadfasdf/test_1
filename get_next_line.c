@@ -53,6 +53,8 @@ void	clear_list(t_list **lst)
 	t_list	*temp;
 	t_list	**first;
 
+	if (!*lst)
+		return ;
 	first = lst;
 	while (*lst)
 	{
@@ -178,8 +180,9 @@ char	*get_next_line(int fd)
 		nb_read = read(fd, buf, BUFFER_SIZE);
 		if (nb_read <= 0)
 		{
-			clear_list(&lst);
-			return (NULL);
+			if (lst)
+				return (return_lst(&lst));
+			Return (NULL);
 		}
 		buf[nb_read] = '\0';
 		str = malloc(nb_read + 1);
@@ -191,7 +194,7 @@ char	*get_next_line(int fd)
 			{
 				str[i + 1] = '\0';
 				add_back(&lst, new_node(str));
-				get_previous(&str[i + 1]);
+				get_previous(&buf[i + 1]);
 				return (return_lst(&lst));
 			}
 			i++;
