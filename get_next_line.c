@@ -24,32 +24,6 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-void	get_previous(char *str)
-{
-	int		i;
-	static char	store[BUFFER_SIZE + 1] = {0};
-
-	if (!str[0])
-	{
-		i = 0;
-		while (store[i])
-		{
-			str[i] = store[i];
-			i++;
-		}
-		str[i] = 0;
-		store[0] = 0;
-		return ;
-	}
-	i = 0;
-	while (str[i])
-	{
-		store[i] = str[i];
-		i++;
-	}
-	store[i] = '\0';
-}
-
 void	clear_list(t_list **lst)
 {
 	t_list	*temp;
@@ -83,49 +57,38 @@ t_list	*new_node(void *content)
 		return (NULL);
 	new -> content = content;
 	new -> next = NULL;
+	new -> previous = NULL;
 	return (new);
 }
 
-/*void    show_list(t_list **lst)
+void	add_front(t_list **lst, t_list *new)
 {
-        t_list *idk;
-        idk = *lst;
-        while (idk)
-        {
-                printf("%s", ((char *)idk->content));
-                idk = idk->next;
-        }
-}*/
-
-void	add_back(t_list **lst, t_list *new)
-{
-	t_list	*last;
-
 	if (!*lst)
 	{
 		*lst = new;
 		return ;
 	}
-	last = ft_lstlast(*lst);
-	last -> next = new;
+	(*lst) -> previous = new;
+	new -> next = *lst;
+	*lst = new;
 }
 
 char	*return_lst(t_list **lst)
 {
 	char	*str;
-	t_list	*first;
 	int		i;
 	int		u;
+	t_list	*node;
 
 	if (!lst)
 		return (NULL);
-	first = *lst;
 	i = 0;
 	u = 0;
-	while (first)
+	node = *lst;
+	while (node)
 	{
-		u += ft_strlen(first->content);
-		first = first -> next;
+		u += ft_strlen(node->content);
+		node = node -> next;
 		i++;
 	}
 	str = malloc(u + 1);
@@ -135,17 +98,19 @@ char	*return_lst(t_list **lst)
 		return (NULL);
 	}
 	i = 0;
-	first = *lst;
-	while (first)	
+	node = *lst;
+	while (node -> next)
+		node = node -> next;
+	while (node -> previous)
 	{
 		u = 0;
-		while (((char *)(first->content))[u])
+		while (((char *)(node->content))[u])
 		{
-			str[i] = ((char *)(first->content))[u];
+			str[i] = ((char *)(node->content))[u];
 			i++;
 			u++;
 		}
-		first = first -> next;
+		node = node->previous;
 	}
 	clear_list(lst);
 	str[i] = '\0';
@@ -157,61 +122,43 @@ char	*get_next_line(int fd)
 	static char	buf[BUFFER_SIZE + 1];
 	char	*str;
 	int		nb_read;
-	int		i;
+	static int		i = 0;
 	t_list	*lst;
 
 	lst = NULL;
-	buf[0] = '\0';
-	get_previous(buf);
-	if (buf[0] != '\0')
-	{
-		str = malloc(ft_strlen(buf) + 1);
-		i = 0;
-		while (buf[i])
-		{
-			str[i] = buf[i];
-			if (buf[i] == '\n')
-			{
-				str[i + 1] = '\0';
-				add_back(&lst, new_node(str));
-				if (buf[i + 1])
-					get_previous(&buf[i + 1]);
-				return (return_lst(&lst));
-			}
-			i++;
-		}
-		str[i] = '\0';
-		add_back(&lst, new_node(str));
-	}
-	buf[0] = '\0';
 	while (1)
 	{
-		nb_read = read(fd, buf, BUFFER_SIZE);
-		if (nb_read <= 0)
+		if (i == 0)
 		{
-			if (lst && nb_read != -1)
-				return (return_lst(&lst));
-			clear_list(&lst);
-			return (NULL);
+			nb_read = read(fd, buf, BUFFER_SIZE);
+			if (nb_read <= 0)
+			{
+				if (lst && nb_read != -1)
+					return (return_lst(&lst));
+				clear_list(&lst);
+				return (NULL);
+			}
+			buf[nb_read] = '\0';
 		}
-		buf[nb_read] = '\0';
-		str = malloc(nb_read + 1);
-		i = 0;
+		str = malloc(ft_strlen(buf) + 1);
 		while (buf[i])
 		{
 			str[i] = buf[i];
 			if (buf[i] == '\n')
 			{
 				str[i + 1] = '\0';
-				add_back(&lst, new_node(str));
+				add_front(&lst, new_node(str));
 				if (buf[i + 1])
-					get_previous(&buf[i + 1]);
+					i++;
+				else
+					i = 0;
 				return (return_lst(&lst));
 			}
 			i++;
 		}
 		str[i] = '\0';
-		add_back(&lst, new_node(str));
+		i = 0;
+		add_front(&lst, new_node(str));
 	}
 }
 
