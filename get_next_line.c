@@ -99,9 +99,9 @@ char	*return_lst(t_list **lst)
 	}
 	i = 0;
 	node = *lst;
-	while (node -> next)
+	while (node)
 		node = node -> next;
-	while (node -> previous)
+	while (node)
 	{
 		u = 0;
 		while (((char *)(node->content))[u])
@@ -124,8 +124,10 @@ char	*get_next_line(int fd)
 	int		nb_read;
 	static int		i = 0;
 	t_list	*lst;
+	int		u;
 
 	lst = NULL;
+	u = 0;
 	while (1)
 	{
 		if (i == 0)
@@ -143,10 +145,10 @@ char	*get_next_line(int fd)
 		str = malloc(ft_strlen(buf) + 1);
 		while (buf[i])
 		{
-			str[i] = buf[i];
+			str[u] = buf[i];
 			if (buf[i] == '\n')
 			{
-				str[i + 1] = '\0';
+				str[u + 1] = '\0';
 				add_front(&lst, new_node(str));
 				if (buf[i + 1])
 					i++;
@@ -156,7 +158,7 @@ char	*get_next_line(int fd)
 			}
 			i++;
 		}
-		str[i] = '\0';
+		str[u] = '\0';
 		i = 0;
 		add_front(&lst, new_node(str));
 	}
