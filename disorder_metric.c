@@ -6,7 +6,7 @@
 /*   By: akoca <akoca@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 10:12:31 by akoca             #+#    #+#             */
-/*   Updated: 2026/05/05 11:42:52 by ylau-sim         ###   ########.fr       */
+/*   Updated: 2026/05/07 14:48:21 by ylau-sim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ float	disorder_metric(t_stack *stack)
 {
 	float	mistakes;
 	float	total_pairs;
-	int	lstsize;
+	int		lstsize;
 
 	lstsize = ft_lstsize(stack);
 	if (lstsize <= 1)
@@ -32,7 +32,6 @@ float	disorder_metric(t_stack *stack)
 		}
 		stack = stack->next;
 	}
-	//printf("%d ", mistakes);
 	return (mistakes / total_pairs);
 }
 /*

@@ -6,7 +6,7 @@
 /*   By: ylau-sim <ylau-sim@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 09:31:43 by ylau-sim          #+#    #+#             */
-/*   Updated: 2026/05/05 15:33:48 by ylau-sim         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:13:34 by ylau-sim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	one_sort(t_stack **stack)
 {
-	t_stack	*top;
-	int		len;
-	int		nb_op;
-	int		i;
+	t_stack			*top;
+	long int		len;
+	long int		nb_op;
+	long int		i;
 
 	nb_op = 0;
 	top = *stack;
@@ -43,7 +43,7 @@ int	one_sort(t_stack **stack)
 
 void	bubble_sort(t_stack **stack)
 {
-	int	nb_op;
+	long int	nb_op;
 
 	nb_op = -1;
 	while (nb_op != 0)

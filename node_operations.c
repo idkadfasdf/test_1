@@ -6,7 +6,7 @@
 /*   By: ylau-sim <ylau-sim@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 16:34:40 by ylau-sim          #+#    #+#             */
-/*   Updated: 2026/05/05 15:35:55 by ylau-sim         ###   ########.fr       */
+/*   Updated: 2026/05/07 16:16:19 by ylau-sim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_stack	*new_node(int content, int i)
 {
-	int	*nb;
-	t_stack	*new;
-	int	*data;
+	int			*nb;
+	t_stack		*new;
+	long int	*data;
 
 	new = malloc(sizeof(t_stack));
 	if (new == NULL)
@@ -25,7 +25,7 @@ t_stack	*new_node(int content, int i)
 	nb = malloc(sizeof(int));
 	*nb = i;
 	new -> index = nb;
-	data = malloc(sizeof(int));
+	data = malloc(sizeof(long int));
 	*data = content;
 	new -> data = data;
 	new -> next = NULL;
@@ -42,8 +42,24 @@ void	add_front(t_stack **lst, t_stack *new)
 	}
 	(*lst)-> previous = new;
 	new -> next = *lst;
-	new->previous = NULL;
 	*lst = new;
+}
+
+void	add_back(t_stack **lst, t_stack *new)
+{
+	t_stack	*last;
+
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	last = *lst;
+	while (last->next)
+		last = last->next;
+	last -> next = new;
+	new->next = NULL;
+	new->previous = last;
 }
 
 void	show_list(t_stack **stack)
@@ -51,27 +67,10 @@ void	show_list(t_stack **stack)
 	t_stack	*temp;
 
 	temp = *stack;
-        printf("\n");
-        while (temp)
-        {
-                printf("%d, ", *temp->data);
-                temp = temp -> next;
-        }
-	printf("\n");
-}
-
-void    show_lst(t_stack **stack)
-{
-        t_stack *temp;
-
-	if (!(*stack))
-		return ;
-	temp = *stack;
 	while (temp)
 	{
-		if (*temp->data != 0)
-			printf("%d\n", *temp->data);
-		show_lst(&temp->lst);
-		temp = temp->next;
+		printf("%ld, ", *temp->data);
+		temp = temp -> next;
 	}
+	printf("\n\n");
 }
