@@ -22,7 +22,6 @@ typedef struct s_stack
 {
 	struct s_stack	*previous;
 	struct s_stack	*next;
-	struct s_stack	*lst;
 	long int		*data;
 	int				*index;
 }	t_stack;
@@ -44,6 +43,7 @@ t_stack	*new_node(int content, int i);
 void	show_list(t_stack **stack);
 int		ft_lstsize(t_stack *lst);
 void	add_back(t_stack **lst, t_stack *new);
+int     is_repeat(t_stack *s);
 
 //SORTING OPERATIONS
 int		push_top(t_stack **stack_to, t_stack **stack_from);
@@ -51,11 +51,12 @@ int		swap_both_tops(t_stack **stack_a, t_stack **stack_b);
 int		swap_top(t_stack **stack);
 int		rotate_both(t_stack **a, t_stack **b);
 int		rotate(t_stack **s);
-int		rrb(t_stack **s);
+int		rrb(t_stack **s, int idk);
 int		pa(t_stack **stack_a, t_stack **stack_b, int print);
 int		pb(t_stack **stack_a, t_stack **stack_b, int print);
 int		ra(t_stack **stack_a, int print);
 int		rb(t_stack **stack_b, int print);
+int     	sa(t_stack **stack_a, int print);
 
 //RADIX SORT
 int		fill_arr(int **arr, t_stack *stack);
@@ -66,9 +67,9 @@ void	radix_sort(t_stack **stack_a, t_stack **stack_b,
 			t_bench **c, int print);
 //BUCKET SORT
 void	bucket_sort(t_stack **a_stack, t_bench **bench);
-
+void	chunk_sort(t_stack **a_stack, t_stack **b_stack, t_bench **bench);
 //BUBBLE SORT
-void	bubble_sort(t_stack **stack);
+void	bubble_sort(t_stack **stack, t_bench **b);
 
 //LIBFT
 int		strcmp(const char *s1, const char *s2);

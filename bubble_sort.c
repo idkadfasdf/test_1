@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-int	one_sort(t_stack **stack)
+int	one_sort(t_stack **stack, t_bench **b)
 {
 	t_stack			*top;
 	long int		len;
@@ -27,27 +27,27 @@ int	one_sort(t_stack **stack)
 	{
 		while (*top->data > *(top->next->data) && i != len)
 		{
-			swap_top(&top);
-			rotate(&top);
+			(*b)->sa_count += sa(&top, (*b)->print);
+			(*b)->ra_count += ra(&top, (*b)->print);
 			nb_op++;
 			i++;
 		}
 		if (i != len)
 		{
-			rotate(&top);
+			(*b)->ra_count += ra(&top, (*b)->print);
 			i++;
 		}
 	}
-	return (rotate(&top), *stack = top, nb_op);
+	return ((*b)->ra_count += ra(&top, (*b)->print), *stack = top, nb_op);
 }
 
-void	bubble_sort(t_stack **stack)
+void	bubble_sort(t_stack **stack, t_bench **b)
 {
 	long int	nb_op;
 
 	nb_op = -1;
 	while (nb_op != 0)
-		nb_op = one_sort(stack);
+		nb_op = one_sort(stack, b);
 }
 
 /*#include <time.h>

@@ -78,7 +78,7 @@ int	reverse_rotate_both(t_stack **a, t_stack **b)
 }
 */
 
-int	rrb(t_stack **s)
+int	rrb(t_stack **s, int idk)
 {
 	t_stack	*temp;
 	t_stack	*last;
@@ -96,7 +96,8 @@ int	rrb(t_stack **s)
 	temp = temp->previous;
 	temp->previous = NULL;
 	*s = temp;
-	write(1, "rrb\n", 4);
+	if (idk)
+		write(1, "rrb\n", 4);
 	return (1);
 }
 /*

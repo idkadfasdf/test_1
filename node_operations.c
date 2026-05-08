@@ -21,7 +21,6 @@ t_stack	*new_node(int content, int i)
 	new = malloc(sizeof(t_stack));
 	if (new == NULL)
 		return (NULL);
-	new->lst = NULL;
 	nb = malloc(sizeof(int));
 	*nb = i;
 	new -> index = nb;

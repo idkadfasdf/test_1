@@ -66,12 +66,14 @@ static int	mk_stack(t_stack **a_stack, int inc, char **argv, t_bench **bench)
 
 void	call_sort(t_stack **a_stack, t_bench **bench, char *params)
 {
+	t_stack *b_stack;
+	b_stack = NULL;
 	if (params[0] == 's')
-		bubble_sort(a_stack);
+		bubble_sort(a_stack, bench);
 	else if (params[0] == 'm')
-		bucket_sort(a_stack, bench);
-	/*else if (params[0] == 'c')
-		radix_sort(a_stack);*/
+		chunk_sort(a_stack, &b_stack, bench);
+	//else if (params[0] == 'c')
+	//	radix_sort(a_stack);
 	show_list(a_stack);
 }
 
@@ -94,7 +96,15 @@ int	main(int argc, char **argv)
 	}
 	bench = NULL;
 	bench = initialize_count();
-	if (mk_stack(&a_stack, params[2], argv, &bench) == 0)
+	if (mk_stack(&a_stack, params[2], argv, &bench) == 0/* || is_repeat(a_stack) == 1*/)
+	{
+		write(1, "error\n", 6);
 		return (0);
+	}
+	if (is_repeat(a_stack) == 1)
+	{
+		write(1, "error: repeat\n", 14);
+		return (0);
+	}
 	call_sort(&a_stack, &bench, params);
 }
