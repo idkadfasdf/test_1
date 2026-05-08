@@ -29,8 +29,8 @@ int	strcmp(const char *s1, const char *s2)
 int	ft_atoi(const char *nptr, int *nbr)
 {
 	long int	nb;
-	int	sign;
-	int	i;
+	int			sign;
+	int			i;
 
 	nb = 0;
 	i = 0;

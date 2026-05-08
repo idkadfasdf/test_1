@@ -69,7 +69,7 @@ void	call_sort(t_stack **a_stack, t_bench **bench, char *params)
 {
 	float	disorder;
 	t_stack	*b_stack;
-	
+
 	if (params[1])
 		(*bench)->print = 0;
 	index_stack(a_stack);

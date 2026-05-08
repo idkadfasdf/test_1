@@ -43,7 +43,7 @@ t_stack	*new_node(int content, int i);
 void	show_list(t_stack **stack);
 int		ft_lstsize(t_stack *lst);
 void	add_back(t_stack **lst, t_stack *new);
-int     is_repeat(t_stack *s);
+int		is_repeat(t_stack *s);
 
 //SORTING OPERATIONS
 int		push_top(t_stack **stack_to, t_stack **stack_from);
@@ -56,7 +56,7 @@ int		pa(t_stack **stack_a, t_stack **stack_b, int print);
 int		pb(t_stack **stack_a, t_stack **stack_b, int print);
 int		ra(t_stack **stack_a, int print);
 int		rb(t_stack **stack_b, int print);
-int     	sa(t_stack **stack_a, int print);
+int		sa(t_stack **stack_a, int print);
 
 //RADIX SORT
 int		fill_arr(int **arr, t_stack *stack);
@@ -77,7 +77,7 @@ int		ft_atoi(const char *nptr, int *nbr);
 int		ft_isdigit(int c);
 
 //DISORDER METRIC
-float   disorder_metric(t_stack *stack);
+float	disorder_metric(t_stack *stack);
 
 //BENCH OPTION
 t_bench	*initialize_count(void);

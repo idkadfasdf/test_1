@@ -6,21 +6,21 @@ void	sort(t_stack **a_stack, t_stack **b_stack, t_bench **b)
 	int	max;
 
 	i = ft_lstsize(*b_stack) - 1;
-        max = i;
-        while (*(*b_stack)->index != i)
-                (*b)->rb_count += rb(b_stack, (*b)->print);
-        while (*b_stack)
-        {
-                if (*(*b_stack)->index == i)
-                {
-                        (*b)->pa_count += pa(a_stack, b_stack, (*b)->print);
-                        i--;
-                }
-                else if (i >= max / 2)
-                        (*b)->rrb_count += rrb(b_stack, (*b)->print);
-                else
-                        (*b)->rb_count += rb(b_stack, (*b)->print);
-        }
+	max = i;
+	while (*(*b_stack)->index != i)
+		(*b)->rb_count += rb(b_stack, (*b)->print);
+	while (*b_stack)
+	{
+		if (*(*b_stack)->index == i)
+		{
+			(*b)->pa_count += pa(a_stack, b_stack, (*b)->print);
+			i--;
+		}
+		else if (i >= max / 2)
+			(*b)->rrb_count += rrb(b_stack, (*b)->print);
+		else
+			(*b)->rb_count += rb(b_stack, (*b)->print);
+	}
 }
 
 void	chunk_sort(t_stack **a_stack, t_bench **b)
@@ -42,7 +42,7 @@ void	chunk_sort(t_stack **a_stack, t_bench **b)
 			i++;
 		}
 		else if (*(*a_stack)->index <= i + range)
-		{	
+		{
 			(*b)->pb_count += pb(&b_stack, a_stack, (*b)->print);
 			i++;
 		}
