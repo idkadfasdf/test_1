@@ -42,6 +42,7 @@ static int	mk_stack(t_stack **a_stack, int inc, char **argv, t_bench **bench)
 {
 	int	i;
 	int	u;
+	int	nb;
 
 	i = 1 + inc;
 	while (argv[i] && u != -1)
@@ -50,31 +51,47 @@ static int	mk_stack(t_stack **a_stack, int inc, char **argv, t_bench **bench)
 		while (argv[i][u])
 		{
 			if (ft_isdigit(argv[i][u]) == 0)
-			{
-				printf("error: %c\n", argv[i][u]);
-				u = -1;
-				exit_protocol(a_stack, bench);
-				return (0);
-			}
+				u = -2;
 			u++;
 		}
-		add_back(a_stack, new_node(ft_atoi(argv[i]), i - inc));
+		ft_atoi(argv[i], &nb);
+		if (nb == 0)
+			u = -1;
+		add_back(a_stack, new_node(ft_atoi(argv[i], &nb), i - inc));
 		i++;
 	}
+	if (is_repeat(*a_stack) == 1 || u == -1)
+		return (exit_protocol(a_stack, bench), 0);
 	return (1);
 }
 
 void	call_sort(t_stack **a_stack, t_bench **bench, char *params)
 {
-	t_stack *b_stack;
+	float	disorder;
+	t_stack	*b_stack;
+	
+	if (params[1])
+		(*bench)->print = 0;
+	index_stack(a_stack);
 	b_stack = NULL;
 	if (params[0] == 's')
 		bubble_sort(a_stack, bench);
 	else if (params[0] == 'm')
-		chunk_sort(a_stack, &b_stack, bench);
-	//else if (params[0] == 'c')
-	//	radix_sort(a_stack);
-	show_list(a_stack);
+		chunk_sort(a_stack, bench);
+	else if (params[0] == 'c')
+		radix_sort(a_stack, &b_stack, bench, (*bench)->print);
+	else
+	{
+		disorder = disorder_metric(*a_stack);
+		if (disorder < 0.2)
+			bubble_sort(a_stack, bench);
+		else if (disorder < 0.5)
+			chunk_sort(a_stack, bench);
+		else
+			radix_sort(a_stack, &b_stack, bench, (*bench)->print);
+	}
+	if (params[1])
+		printf("bench\n");//ICI IL FAUT CALL LA FONCTION BENCH
 }
 
 int	main(int argc, char **argv)
@@ -91,20 +108,16 @@ int	main(int argc, char **argv)
 		get_params(argv, params, 2);
 	if (params[0] == 'e')
 	{
-		printf("error\n");
+		printf("Error\n");
 		return (0);
 	}
 	bench = NULL;
 	bench = initialize_count();
-	if (mk_stack(&a_stack, params[2], argv, &bench) == 0/* || is_repeat(a_stack) == 1*/)
+	if (mk_stack(&a_stack, params[2], argv, &bench) == 0)
 	{
-		write(1, "error\n", 6);
-		return (0);
-	}
-	if (is_repeat(a_stack) == 1)
-	{
-		write(1, "error: repeat\n", 14);
+		write(1, "Error\n", 6);
 		return (0);
 	}
 	call_sort(&a_stack, &bench, params);
+	show_list(&a_stack);
 }

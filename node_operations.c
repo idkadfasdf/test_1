@@ -68,8 +68,10 @@ void	show_list(t_stack **stack)
 	temp = *stack;
 	while (temp)
 	{
-		printf("%ld, ", *temp->data);
+		printf("%ld", *temp->data);
+		if (temp->next)
+			printf(", ");
 		temp = temp -> next;
 	}
-	printf("\n\n");
+	printf("\n");
 }

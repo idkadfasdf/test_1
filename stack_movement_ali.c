@@ -55,8 +55,8 @@ int	push_top(t_stack **stack_to, t_stack **stack_from)
 
 int	sa(t_stack **stack_a, int print)
 {
-	if (!stack_a || !(*stack_a) || !(*stack_a)->next)
-		return (0);
+	/*if (!stack_a || !(*stack_a) || !(*stack_a)->next)
+		return (0);*/
 	swap_top(stack_a);
 	if (print)
 		write(1, "sa\n", 3);
@@ -75,8 +75,8 @@ int	pa(t_stack **stack_a, t_stack **stack_b, int print)
 
 int	pb(t_stack **stack_a, t_stack **stack_b, int print)
 {
-	/*if (!(*stack_a))
-		return (0);*/
+	if (!(*stack_a))
+		return (0);
 	push_top(stack_a, stack_b);
 	if (print)
 		write(1, "pb\n", 3);

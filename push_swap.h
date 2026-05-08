@@ -65,16 +65,19 @@ int		index_stack(t_stack **stack);
 int		count_max_bits(t_stack *stack);
 void	radix_sort(t_stack **stack_a, t_stack **stack_b,
 			t_bench **c, int print);
-//BUCKET SORT
-void	bucket_sort(t_stack **a_stack, t_bench **bench);
-void	chunk_sort(t_stack **a_stack, t_stack **b_stack, t_bench **bench);
+//CHUNK SORT
+void	chunk_sort(t_stack **a_stack, t_bench **bench);
+
 //BUBBLE SORT
 void	bubble_sort(t_stack **stack, t_bench **b);
 
 //LIBFT
 int		strcmp(const char *s1, const char *s2);
-int		ft_atoi(const char *nptr);
+int		ft_atoi(const char *nptr, int *nbr);
 int		ft_isdigit(int c);
+
+//DISORDER METRIC
+float   disorder_metric(t_stack *stack);
 
 //BENCH OPTION
 t_bench	*initialize_count(void);

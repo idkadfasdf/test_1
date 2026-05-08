@@ -26,9 +26,9 @@ int	strcmp(const char *s1, const char *s2)
 	return (1);
 }
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr, int *nbr)
 {
-	int	nb;
+	long int	nb;
 	int	sign;
 	int	i;
 
@@ -48,7 +48,10 @@ int	ft_atoi(const char *nptr)
 		nb = nb * 10 + nptr[i] - 48;
 		i++;
 	}
-	return (nb * sign);
+	*nbr = 1;
+	if (nb > 2147483647 || nb < -2147483648)
+		*nbr = 0;
+	return ((int)nb * sign);
 }
 
 int	ft_isdigit(int c)
