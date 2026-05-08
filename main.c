@@ -35,6 +35,8 @@ void	get_params(char **argv, char *params, int i)
 		params[0] = 'a';
 	if (ripali[0] == 1)
 		params[1] = 'b';
+	else
+		params[1] = '\0';
 	params[2] = ripali[0] + ripali[1] + ripali[2] + ripali[3];
 }
 
@@ -44,7 +46,9 @@ static int	mk_stack(t_stack **a_stack, int inc, char **argv, t_bench **bench)
 	int	u;
 	int	nb;
 
+	u = 0;
 	i = 1 + inc;
+	*a_stack = NULL;
 	while (argv[i] && u != -1)
 	{
 		u = 0;
@@ -120,4 +124,5 @@ int	main(int argc, char **argv)
 	}
 	call_sort(&a_stack, &bench, params);
 	show_list(&a_stack);
+	exit_protocol(&a_stack, &bench);
 }
